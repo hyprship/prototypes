@@ -40,7 +40,7 @@ public class AppDbContext : IdentityDbContext<User, Role, int, UserClaim, UserRo
             }
         }
 
-        bool useSchema = this.Database.ProviderName.Contains("sqlite", StringComparison.OrdinalIgnoreCase);
+        bool useSchema = this.Database.ProviderName?.Contains("sqlite", StringComparison.OrdinalIgnoreCase) == true;
         string? iamSchema = useSchema ? "iam" : null;
 
         IamConfig.Configure(builder, maxKeyLength, converter, iamSchema);
