@@ -1,21 +1,60 @@
-using Hyprship.Sites.Mvc.Data;
-
+using Hyprship.Data.Model;
+using Hyprship.Data.MsSql;
+using Hyprship.Data.MySql;
+using Hyprship.Data.PgSql;
+using Hyprship.Data.Sqlite;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+var provider = Environment.GetEnvironmentVariable("HYPRSHIP_DB_PROVIDER") ??
+               Environment.GetEnvironmentVariable("DB_PROVIDER") ??
+               "sqlite";
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseSnakeCaseNamingConvention();
+    options.EnableDetailedErrors();
+    options.EnableSensitiveDataLogging();
+    switch (provider.ToLowerInvariant())
+    {
+        case "mysql":
+            options.UseMySql(MySqlDbContext.GetConnectionString(), ServerVersion.AutoDetect(MySqlDbContext.GetConnectionString()));
+            break;
+        case "pgsql":
+            options.UseNpgsql(PgSqlDbContext.GetConnectionString());
+            break;
+        case "mssql":
+            options.UseSqlServer(MssqlDbContext.GetConnectionString());
+            break;
+        case "sqlite":
+            options.UseSqlite(SqliteDbContext.GetConnectionString());
+            break;
+        default:
+            throw new InvalidOperationException($"Unsupported database provider: {provider}");
+    }
+});
+
+builder.Services
+    .AddDatabaseDeveloperPageExceptionFilter();
+
+builder.Services
+    .AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddUserManager<UserManager<User>>()
+    .AddRoles<Role>()
+    .AddRoleManager<RoleManager<Role>>()
+    .AddEntityFrameworkStores<AppDbContext>();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+var sp = builder.Services.BuildServiceProvider();
+var db = sp.GetRequiredService<AppDbContext>().Database;
+await db.EnsureCreatedAsync();
+await db.MigrateAsync();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

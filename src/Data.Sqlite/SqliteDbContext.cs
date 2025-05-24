@@ -3,7 +3,7 @@ using Hyprship.Data.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace Hyprship.Data.MySql;
+namespace Hyprship.Data.Sqlite;
 
 public class SqliteDbContext : AppDbContext
 {
@@ -12,12 +12,29 @@ public class SqliteDbContext : AppDbContext
     {
     }
 
+    public static string GetConnectionString()
+    {
+        var cs = Environment.GetEnvironmentVariable("HYPRSHIP_DB_CONNECTION_STRING") ??
+                 Environment.GetEnvironmentVariable("SQLITE_CONNECTION_STRING");
+
+        if (!string.IsNullOrEmpty(cs))
+        {
+            return cs;
+        }
+
+        var db = Environment.GetEnvironmentVariable("HYPRSHIP_DB_NAME") ??
+                 Environment.GetEnvironmentVariable("SQLITE_DATABASE") ??
+                 "hyprship.db";
+
+        return $"Data Source={db};Cache=Shared";
+    }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
         {
             optionsBuilder.UseSnakeCaseNamingConvention();
-            optionsBuilder.UseSqlite("Data Source=memory;Cache=Shared");
+            optionsBuilder.UseSqlite(GetConnectionString());
             optionsBuilder.EnableSensitiveDataLogging();
             optionsBuilder.EnableDetailedErrors();
         }
@@ -32,7 +49,7 @@ public class SqliteDbContextFactory : IDesignTimeDbContextFactory<SqliteDbContex
     {
         var optionsBuilder = new DbContextOptionsBuilder<SqliteDbContext>();
         optionsBuilder.UseSnakeCaseNamingConvention();
-        optionsBuilder.UseSqlite("Data Source=memory;Cache=Shared");
+        optionsBuilder.UseSqlite(SqliteDbContext.GetConnectionString());
         optionsBuilder.EnableSensitiveDataLogging();
         optionsBuilder.EnableDetailedErrors();
 

@@ -1,5 +1,3 @@
-#!/home/dev_user/.dotnet/dotnet run
-
 using static System.Console;
 using System.Diagnostics;
 using System.IO;

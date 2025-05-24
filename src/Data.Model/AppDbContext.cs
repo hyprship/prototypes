@@ -40,6 +40,9 @@ public class AppDbContext : IdentityDbContext<User, Role, int, UserClaim, UserRo
             }
         }
 
-        IamConfig.Configure(builder, maxKeyLength, converter);
+        bool useSchema = this.Database.ProviderName.Contains("sqlite", StringComparison.OrdinalIgnoreCase);
+        string? iamSchema = useSchema ? "iam" : null;
+
+        IamConfig.Configure(builder, maxKeyLength, converter, iamSchema);
     }
 }

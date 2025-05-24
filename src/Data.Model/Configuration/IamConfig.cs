@@ -6,7 +6,7 @@ namespace Hyprship.Data.Model.Configuration;
 
 public static class IamConfig
 {
-    public static void Configure(ModelBuilder builder, int maxKeyLength, PersonalDataConverter? personalDataConverter)
+    public static void Configure(ModelBuilder builder, int maxKeyLength, PersonalDataConverter? personalDataConverter, string? schema = "iam")
     {
         ConfigureUsersOnly(builder, maxKeyLength, personalDataConverter);
         builder.Entity<User>(b =>
@@ -22,7 +22,7 @@ public static class IamConfig
         ConfigureUserRole(builder.Entity<UserRole>());
     }
 
-    public static void ConfigureUsersOnly(ModelBuilder builder, int maxKeyLength, PersonalDataConverter? personalDataConverter)
+    public static void ConfigureUsersOnly(ModelBuilder builder, int maxKeyLength, PersonalDataConverter? personalDataConverter, string? schema = "iam")
     {
         ConfigureUser(builder.Entity<User>(), personalDataConverter);
         ConfigureUserClaim(builder.Entity<UserClaim>());
@@ -30,10 +30,11 @@ public static class IamConfig
         ConfigureUserToken(builder.Entity<UserToken>(), maxKeyLength, personalDataConverter);
     }
 
-    public static void ConfigureUser(EntityTypeBuilder<User> builder, PersonalDataConverter? personalDataConverter = null)
+    public static void ConfigureUser(EntityTypeBuilder<User> builder, PersonalDataConverter? personalDataConverter = null, string? schema = null)
     {
         var b = builder;
-        b.ToTable("users", "iam");
+
+        b.ToTable("users", schema);
         b.HasKey(u => u.Id).HasName("pk_users");
         b.HasIndex(u => u.NormalizedUserName)
             .HasDatabaseName("ix_users_username")
@@ -87,14 +88,14 @@ public static class IamConfig
             .IsRequired();
     }
 
-    public static void ConfigureUserClaim(EntityTypeBuilder<UserClaim> builder)
+    public static void ConfigureUserClaim(EntityTypeBuilder<UserClaim> builder, string? schema = null)
     {
         var b = builder;
         b.HasKey(uc => uc.Id).HasName("pk_user_claims");
-        b.ToTable("user_claims", "iam");
+        b.ToTable("user_claims", schema);
     }
 
-    public static void ConfigureUserLogin(EntityTypeBuilder<UserLogin> builder, int maxKeyLength = 128)
+    public static void ConfigureUserLogin(EntityTypeBuilder<UserLogin> builder, int maxKeyLength = 128, string? schema = null)
     {
         var b = builder;
         b.HasKey(l => new { l.LoginProvider, l.ProviderKey }).HasName("pk_user_logins");
@@ -105,10 +106,10 @@ public static class IamConfig
             b.Property(l => l.ProviderKey).HasMaxLength(maxKeyLength);
         }
 
-        b.ToTable("user_logins", "iam");
+        b.ToTable("user_logins", schema);
     }
 
-    public static void ConfigureUserToken(EntityTypeBuilder<UserToken> builder, int maxKeyLength = 128, PersonalDataConverter? converter = null)
+    public static void ConfigureUserToken(EntityTypeBuilder<UserToken> builder, int maxKeyLength = 128, PersonalDataConverter? converter = null, string? schema = null)
     {
         var b = builder;
         b.HasKey(t => new { t.UserId, t.LoginProvider, t.Name }).HasName("pk_user_tokens");
@@ -133,13 +134,13 @@ public static class IamConfig
             }
         }
 
-        b.ToTable("user_tokens", "iam");
+        b.ToTable("user_tokens", schema);
     }
 
-    public static void ConfigureRole(EntityTypeBuilder<Role> builder)
+    public static void ConfigureRole(EntityTypeBuilder<Role> builder, string? schema = null)
     {
         var b = builder;
-        b.ToTable("iam", "roles");
+        b.ToTable("roles", schema);
         b.HasKey(r => r.Id).HasName("pk_roles");
         b.HasIndex(r => r.NormalizedName)
             .HasDatabaseName("ix_roles_name")
@@ -153,23 +154,21 @@ public static class IamConfig
         b.Property(u => u.Name).HasMaxLength(256);
         b.Property(u => u.NormalizedName).HasMaxLength(256);
 
-        b.ToTable("roles", "iam");
-
         b.HasMany<UserRole>().WithOne().HasForeignKey(ur => ur.RoleId).HasConstraintName("fk_users_roles_roles").IsRequired();
         b.HasMany<RoleClaim>().WithOne().HasForeignKey(rc => rc.RoleId).HasConstraintName("fk_role_claims_roles").IsRequired();
     }
 
-    public static void ConfigureRoleClaim(EntityTypeBuilder<RoleClaim> builder)
+    public static void ConfigureRoleClaim(EntityTypeBuilder<RoleClaim> builder, string? schema = null)
     {
         var b = builder;
         b.HasKey(rc => rc.Id).HasName("pk_role_claims");
-        b.ToTable("role_claims", "iam");
+        b.ToTable("role_claims", schema);
     }
 
-    public static void ConfigureUserRole(EntityTypeBuilder<UserRole> builder)
+    public static void ConfigureUserRole(EntityTypeBuilder<UserRole> builder, string? schema = null)
     {
         var b = builder;
         b.HasKey(r => new { r.UserId, r.RoleId }).HasName("pk_user_roles");
-        b.ToTable("users_roles", "iam");
+        b.ToTable("users_roles", schema);
     }
 }

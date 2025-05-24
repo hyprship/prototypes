@@ -9,17 +9,13 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Hyprship.Data.PgSql.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateIam : Migration
+    public partial class IamCreateTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.EnsureSchema(
-                name: "iam");
-
             migrationBuilder.CreateTable(
                 name: "roles",
-                schema: "iam",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
@@ -36,7 +32,6 @@ namespace Hyprship.Data.PgSql.Migrations
 
             migrationBuilder.CreateTable(
                 name: "users",
-                schema: "iam",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
@@ -64,7 +59,6 @@ namespace Hyprship.Data.PgSql.Migrations
 
             migrationBuilder.CreateTable(
                 name: "role_claims",
-                schema: "iam",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
@@ -79,7 +73,6 @@ namespace Hyprship.Data.PgSql.Migrations
                     table.ForeignKey(
                         name: "fk_role_claims_roles",
                         column: x => x.role_id,
-                        principalSchema: "iam",
                         principalTable: "roles",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -87,7 +80,6 @@ namespace Hyprship.Data.PgSql.Migrations
 
             migrationBuilder.CreateTable(
                 name: "user_claims",
-                schema: "iam",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
@@ -102,7 +94,6 @@ namespace Hyprship.Data.PgSql.Migrations
                     table.ForeignKey(
                         name: "fk_user_claims_users",
                         column: x => x.user_id,
-                        principalSchema: "iam",
                         principalTable: "users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -110,7 +101,6 @@ namespace Hyprship.Data.PgSql.Migrations
 
             migrationBuilder.CreateTable(
                 name: "user_logins",
-                schema: "iam",
                 columns: table => new
                 {
                     login_provider = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
@@ -124,7 +114,6 @@ namespace Hyprship.Data.PgSql.Migrations
                     table.ForeignKey(
                         name: "fk_user_logins_users",
                         column: x => x.user_id,
-                        principalSchema: "iam",
                         principalTable: "users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -132,7 +121,6 @@ namespace Hyprship.Data.PgSql.Migrations
 
             migrationBuilder.CreateTable(
                 name: "user_tokens",
-                schema: "iam",
                 columns: table => new
                 {
                     user_id = table.Column<int>(type: "integer", nullable: false),
@@ -146,7 +134,6 @@ namespace Hyprship.Data.PgSql.Migrations
                     table.ForeignKey(
                         name: "fk_user_tokens_users",
                         column: x => x.user_id,
-                        principalSchema: "iam",
                         principalTable: "users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -154,7 +141,6 @@ namespace Hyprship.Data.PgSql.Migrations
 
             migrationBuilder.CreateTable(
                 name: "users_roles",
-                schema: "iam",
                 columns: table => new
                 {
                     user_id = table.Column<int>(type: "integer", nullable: false),
@@ -166,14 +152,12 @@ namespace Hyprship.Data.PgSql.Migrations
                     table.ForeignKey(
                         name: "fk_users_roles_roles",
                         column: x => x.role_id,
-                        principalSchema: "iam",
                         principalTable: "roles",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_users_roles_users",
                         column: x => x.user_id,
-                        principalSchema: "iam",
                         principalTable: "users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -181,53 +165,45 @@ namespace Hyprship.Data.PgSql.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "ix_role_claims_role_id",
-                schema: "iam",
                 table: "role_claims",
                 column: "role_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_roles_name",
-                schema: "iam",
                 table: "roles",
                 column: "normalized_name",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "ix_roles_sync_id",
-                schema: "iam",
                 table: "roles",
                 column: "sync_id",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "ix_user_claims_user_id",
-                schema: "iam",
                 table: "user_claims",
                 column: "user_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_user_logins_user_id",
-                schema: "iam",
                 table: "user_logins",
                 column: "user_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_users_email",
-                schema: "iam",
                 table: "users",
                 column: "normalized_email",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "ix_users_username",
-                schema: "iam",
                 table: "users",
                 column: "normalized_user_name",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "ix_users_roles_role_id",
-                schema: "iam",
                 table: "users_roles",
                 column: "role_id");
         }
@@ -236,32 +212,25 @@ namespace Hyprship.Data.PgSql.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "role_claims",
-                schema: "iam");
+                name: "role_claims");
 
             migrationBuilder.DropTable(
-                name: "user_claims",
-                schema: "iam");
+                name: "user_claims");
 
             migrationBuilder.DropTable(
-                name: "user_logins",
-                schema: "iam");
+                name: "user_logins");
 
             migrationBuilder.DropTable(
-                name: "user_tokens",
-                schema: "iam");
+                name: "user_tokens");
 
             migrationBuilder.DropTable(
-                name: "users_roles",
-                schema: "iam");
+                name: "users_roles");
 
             migrationBuilder.DropTable(
-                name: "roles",
-                schema: "iam");
+                name: "roles");
 
             migrationBuilder.DropTable(
-                name: "users",
-                schema: "iam");
+                name: "users");
         }
     }
 }

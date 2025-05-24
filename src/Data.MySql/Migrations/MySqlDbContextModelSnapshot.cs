@@ -61,7 +61,7 @@ namespace Hyprship.Data.MySql.Migrations
                         .IsUnique()
                         .HasDatabaseName("ix_roles_sync_id");
 
-                    b.ToTable("roles", "iam");
+                    b.ToTable("roles", (string)null);
                 });
 
             modelBuilder.Entity("Hyprship.Data.Model.RoleClaim", b =>
@@ -91,7 +91,7 @@ namespace Hyprship.Data.MySql.Migrations
                     b.HasIndex("RoleId")
                         .HasDatabaseName("ix_role_claims_role_id");
 
-                    b.ToTable("role_claims", "iam");
+                    b.ToTable("role_claims", (string)null);
                 });
 
             modelBuilder.Entity("Hyprship.Data.Model.User", b =>
@@ -180,7 +180,7 @@ namespace Hyprship.Data.MySql.Migrations
                         .IsUnique()
                         .HasDatabaseName("ix_users_username");
 
-                    b.ToTable("users", "iam");
+                    b.ToTable("users", (string)null);
                 });
 
             modelBuilder.Entity("Hyprship.Data.Model.UserClaim", b =>
@@ -210,7 +210,7 @@ namespace Hyprship.Data.MySql.Migrations
                     b.HasIndex("UserId")
                         .HasDatabaseName("ix_user_claims_user_id");
 
-                    b.ToTable("user_claims", "iam");
+                    b.ToTable("user_claims", (string)null);
                 });
 
             modelBuilder.Entity("Hyprship.Data.Model.UserLogin", b =>
@@ -239,7 +239,7 @@ namespace Hyprship.Data.MySql.Migrations
                     b.HasIndex("UserId")
                         .HasDatabaseName("ix_user_logins_user_id");
 
-                    b.ToTable("user_logins", "iam");
+                    b.ToTable("user_logins", (string)null);
                 });
 
             modelBuilder.Entity("Hyprship.Data.Model.UserRole", b =>
@@ -258,7 +258,7 @@ namespace Hyprship.Data.MySql.Migrations
                     b.HasIndex("RoleId")
                         .HasDatabaseName("ix_users_roles_role_id");
 
-                    b.ToTable("users_roles", "iam");
+                    b.ToTable("users_roles", (string)null);
                 });
 
             modelBuilder.Entity("Hyprship.Data.Model.UserToken", b =>
@@ -284,7 +284,7 @@ namespace Hyprship.Data.MySql.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name")
                         .HasName("pk_user_tokens");
 
-                    b.ToTable("user_tokens", "iam");
+                    b.ToTable("user_tokens", (string)null);
                 });
 
             modelBuilder.Entity("Hyprship.Data.Model.RoleClaim", b =>

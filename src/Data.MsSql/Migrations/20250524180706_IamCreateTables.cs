@@ -4,28 +4,24 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Hyprship.Data.Sqlite.Migrations
+namespace Hyprship.Data.MsSql.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateIam : Migration
+    public partial class IamCreateTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.EnsureSchema(
-                name: "iam");
-
             migrationBuilder.CreateTable(
                 name: "roles",
-                schema: "iam",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    sync_id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    name = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    normalized_name = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    concurrency_stamp = table.Column<string>(type: "TEXT", nullable: true),
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    sync_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    normalized_name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    concurrency_stamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
                 },
                 constraints: table =>
                 {
@@ -34,26 +30,25 @@ namespace Hyprship.Data.Sqlite.Migrations
 
             migrationBuilder.CreateTable(
                 name: "users",
-                schema: "iam",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    sync_id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    user_name = table.Column<string>(type: "TEXT", maxLength: 64, nullable: true),
-                    normalized_user_name = table.Column<string>(type: "TEXT", maxLength: 64, nullable: true),
-                    email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    normalized_email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    email_confirmed = table.Column<bool>(type: "INTEGER", nullable: false),
-                    password_hash = table.Column<string>(type: "TEXT", nullable: true),
-                    security_stamp = table.Column<string>(type: "TEXT", nullable: true),
-                    concurrency_stamp = table.Column<string>(type: "TEXT", nullable: true),
-                    phone_number = table.Column<string>(type: "TEXT", maxLength: 64, nullable: true),
-                    phone_number_confirmed = table.Column<bool>(type: "INTEGER", nullable: false),
-                    two_factor_enabled = table.Column<bool>(type: "INTEGER", nullable: false),
-                    lockout_end = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
-                    lockout_enabled = table.Column<bool>(type: "INTEGER", nullable: false),
-                    access_failed_count = table.Column<int>(type: "INTEGER", nullable: false),
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    sync_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    user_name = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
+                    normalized_user_name = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
+                    email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    normalized_email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    email_confirmed = table.Column<bool>(type: "bit", nullable: false),
+                    password_hash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    security_stamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    concurrency_stamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    phone_number = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
+                    phone_number_confirmed = table.Column<bool>(type: "bit", nullable: false),
+                    two_factor_enabled = table.Column<bool>(type: "bit", nullable: false),
+                    lockout_end = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    lockout_enabled = table.Column<bool>(type: "bit", nullable: false),
+                    access_failed_count = table.Column<int>(type: "int", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -62,14 +57,13 @@ namespace Hyprship.Data.Sqlite.Migrations
 
             migrationBuilder.CreateTable(
                 name: "role_claims",
-                schema: "iam",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    role_id = table.Column<int>(type: "INTEGER", nullable: false),
-                    claim_type = table.Column<string>(type: "TEXT", nullable: true),
-                    claim_value = table.Column<string>(type: "TEXT", nullable: true),
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    role_id = table.Column<int>(type: "int", nullable: false),
+                    claim_type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    claim_value = table.Column<string>(type: "nvarchar(max)", nullable: true),
                 },
                 constraints: table =>
                 {
@@ -77,7 +71,6 @@ namespace Hyprship.Data.Sqlite.Migrations
                     table.ForeignKey(
                         name: "fk_role_claims_roles",
                         column: x => x.role_id,
-                        principalSchema: "iam",
                         principalTable: "roles",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -85,14 +78,13 @@ namespace Hyprship.Data.Sqlite.Migrations
 
             migrationBuilder.CreateTable(
                 name: "user_claims",
-                schema: "iam",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    user_id = table.Column<int>(type: "INTEGER", nullable: false),
-                    claim_type = table.Column<string>(type: "TEXT", nullable: true),
-                    claim_value = table.Column<string>(type: "TEXT", nullable: true),
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    user_id = table.Column<int>(type: "int", nullable: false),
+                    claim_type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    claim_value = table.Column<string>(type: "nvarchar(max)", nullable: true),
                 },
                 constraints: table =>
                 {
@@ -100,7 +92,6 @@ namespace Hyprship.Data.Sqlite.Migrations
                     table.ForeignKey(
                         name: "fk_user_claims_users",
                         column: x => x.user_id,
-                        principalSchema: "iam",
                         principalTable: "users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -108,13 +99,12 @@ namespace Hyprship.Data.Sqlite.Migrations
 
             migrationBuilder.CreateTable(
                 name: "user_logins",
-                schema: "iam",
                 columns: table => new
                 {
-                    login_provider = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
-                    provider_key = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
-                    provider_display_name = table.Column<string>(type: "TEXT", nullable: true),
-                    user_id = table.Column<int>(type: "INTEGER", nullable: false),
+                    login_provider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    provider_key = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    provider_display_name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    user_id = table.Column<int>(type: "int", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -122,7 +112,6 @@ namespace Hyprship.Data.Sqlite.Migrations
                     table.ForeignKey(
                         name: "fk_user_logins_users",
                         column: x => x.user_id,
-                        principalSchema: "iam",
                         principalTable: "users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -130,13 +119,12 @@ namespace Hyprship.Data.Sqlite.Migrations
 
             migrationBuilder.CreateTable(
                 name: "user_tokens",
-                schema: "iam",
                 columns: table => new
                 {
-                    user_id = table.Column<int>(type: "INTEGER", nullable: false),
-                    login_provider = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
-                    name = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
-                    value = table.Column<string>(type: "TEXT", nullable: true),
+                    user_id = table.Column<int>(type: "int", nullable: false),
+                    login_provider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    value = table.Column<string>(type: "nvarchar(max)", nullable: true),
                 },
                 constraints: table =>
                 {
@@ -144,7 +132,6 @@ namespace Hyprship.Data.Sqlite.Migrations
                     table.ForeignKey(
                         name: "fk_user_tokens_users",
                         column: x => x.user_id,
-                        principalSchema: "iam",
                         principalTable: "users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -152,11 +139,10 @@ namespace Hyprship.Data.Sqlite.Migrations
 
             migrationBuilder.CreateTable(
                 name: "users_roles",
-                schema: "iam",
                 columns: table => new
                 {
-                    user_id = table.Column<int>(type: "INTEGER", nullable: false),
-                    role_id = table.Column<int>(type: "INTEGER", nullable: false),
+                    user_id = table.Column<int>(type: "int", nullable: false),
+                    role_id = table.Column<int>(type: "int", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -164,14 +150,12 @@ namespace Hyprship.Data.Sqlite.Migrations
                     table.ForeignKey(
                         name: "fk_users_roles_roles",
                         column: x => x.role_id,
-                        principalSchema: "iam",
                         principalTable: "roles",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_users_roles_users",
                         column: x => x.user_id,
-                        principalSchema: "iam",
                         principalTable: "users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -179,53 +163,48 @@ namespace Hyprship.Data.Sqlite.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "ix_role_claims_role_id",
-                schema: "iam",
                 table: "role_claims",
                 column: "role_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_roles_name",
-                schema: "iam",
                 table: "roles",
                 column: "normalized_name",
-                unique: true);
+                unique: true,
+                filter: "[normalized_name] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "ix_roles_sync_id",
-                schema: "iam",
                 table: "roles",
                 column: "sync_id",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "ix_user_claims_user_id",
-                schema: "iam",
                 table: "user_claims",
                 column: "user_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_user_logins_user_id",
-                schema: "iam",
                 table: "user_logins",
                 column: "user_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_users_email",
-                schema: "iam",
                 table: "users",
                 column: "normalized_email",
-                unique: true);
+                unique: true,
+                filter: "[normalized_email] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "ix_users_username",
-                schema: "iam",
                 table: "users",
                 column: "normalized_user_name",
-                unique: true);
+                unique: true,
+                filter: "[normalized_user_name] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "ix_users_roles_role_id",
-                schema: "iam",
                 table: "users_roles",
                 column: "role_id");
         }
@@ -234,32 +213,25 @@ namespace Hyprship.Data.Sqlite.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "role_claims",
-                schema: "iam");
+                name: "role_claims");
 
             migrationBuilder.DropTable(
-                name: "user_claims",
-                schema: "iam");
+                name: "user_claims");
 
             migrationBuilder.DropTable(
-                name: "user_logins",
-                schema: "iam");
+                name: "user_logins");
 
             migrationBuilder.DropTable(
-                name: "user_tokens",
-                schema: "iam");
+                name: "user_tokens");
 
             migrationBuilder.DropTable(
-                name: "users_roles",
-                schema: "iam");
+                name: "users_roles");
 
             migrationBuilder.DropTable(
-                name: "roles",
-                schema: "iam");
+                name: "roles");
 
             migrationBuilder.DropTable(
-                name: "users",
-                schema: "iam");
+                name: "users");
         }
     }
 }

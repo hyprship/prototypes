@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+# get the current script directory
+
+export PATH="$SCRIPT_DIR:$PATH"
+if [[ -f "$HOME/.dotnet/dotnet" ]]; then
+    export DOTNET_ROOT="$HOME/.dotnet"
+    export PATH="$DOTNET_ROOT:$PATH"
+fi
