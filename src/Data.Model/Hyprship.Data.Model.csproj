@@ -12,4 +12,8 @@
      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />   
      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../ComponentModel.Annotations/*.csproj"  />
+  </ItemGroup>
 </Project>
