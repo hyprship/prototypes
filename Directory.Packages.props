@@ -25,6 +25,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.12.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.12.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.12.0" />
+    
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
     <PackageVersion Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0-preview.3.efcore.9.0.0" />
@@ -34,6 +35,7 @@
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.10.0.116381" />
     <PackageVersion Include="StyleCop.Analyzers"  Version="1.2.0-beta.556"/>
     <PackageVersion Include="System.Memory" Version="4.6.3" />
+    <PackageVersion Include="System.Threading.Tasks.Extensions" Version="4.6.3" />
     <PackageVersion Include="Text.Analyzers"  Version="4.14.0"/>  
     <PackageVersion Include="xunit.v3" Version="2.0.2" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.0" />
