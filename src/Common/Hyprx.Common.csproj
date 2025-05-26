@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <LibFx Condition="$(BclFx) == ''">net8.0</LibFx>
+    <TargetFrameworks>$(BclFx)</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>true</ImplicitUsings>
+    <RootNamespace>Hyprx</RootNamespace>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <!-- TODO: ship icon -->
+    <IsPackable>false</IsPackable>
+    <NoWarn>$(NoWarn);S1144</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup Condition="$(NetLegacy) == 'true'">
+    <PackageReference Include="System.Memory" />
+    <PackageReference Include="Microsoft.Bcl.HashCode" />
+    <PackageReference Include="Polyfill" />
+  </ItemGroup>
+
+</Project>
