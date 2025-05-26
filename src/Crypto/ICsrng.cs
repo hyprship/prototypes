@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bearz.Crypto;
+namespace Hyprx.Crypto;
 
 /// <summary>
 /// A contract for a cryptographically secure random

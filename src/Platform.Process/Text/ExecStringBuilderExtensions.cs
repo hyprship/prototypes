@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Bearz.Text;
+namespace Hyprx.Text;
 
 public static class ExecStringBuilderExtensions
 {

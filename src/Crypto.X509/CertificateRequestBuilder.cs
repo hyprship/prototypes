@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 
 // ReSharper disable ParameterHidesMember
-namespace Bearz.Crypto.X509;
+namespace Hyprx.Crypto.X509;
 
 public class CertificateRequestBuilder : ICertificateRequestBuilder
 {

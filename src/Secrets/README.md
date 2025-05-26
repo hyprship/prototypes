@@ -1,4 +1,4 @@
-# Hyprx.Crypto
+# Hyprx.Secrets
 
 ## Overview
 

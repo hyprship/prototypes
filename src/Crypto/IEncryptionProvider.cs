@@ -1,6 +1,6 @@
 using System;
 
-namespace Bearz.Crypto
+namespace Hyprx.Crypto
 {
     public interface IEncryptionProvider
     {

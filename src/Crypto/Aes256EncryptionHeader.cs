@@ -1,6 +1,6 @@
 using System.Security.Cryptography;
 
-namespace Bearz.Crypto;
+namespace Hyprx.Crypto;
 
 /// <summary>
 /// The header for the AES256 encryption record.

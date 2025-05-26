@@ -1,7 +1,7 @@
 // ReSharper disable InconsistentNaming
 #pragma warning disable CA1028
 
-namespace Bearz.Crypto
+namespace Hyprx.Crypto
 {
     public enum KeyedHashAlgorithmType : short
     {

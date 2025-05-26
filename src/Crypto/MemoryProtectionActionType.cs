@@ -1,7 +1,7 @@
-namespace Bearz.Crypto
+namespace Hyprx.Crypto
 {
     /// <summary>
-    /// The type of action for the delegate <see cref="Bearz.Crypto.MemoryProtectionAction"/>.
+    /// The type of action for the delegate <see cref="Hyprx.Crypto.MemoryProtectionAction"/>.
     /// </summary>
     public enum MemoryProtectionActionType
     {

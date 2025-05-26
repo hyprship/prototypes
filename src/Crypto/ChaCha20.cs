@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
-namespace Bearz.Crypto
+namespace Hyprx.Crypto
 {
     public sealed class ChaCha20 : SymmetricAlgorithm
     {
@@ -56,7 +56,7 @@ namespace Bearz.Crypto
 #pragma warning disable CS0109
 
         /// <summary>
-        /// Creates a new instance of <see cref="Bearz.Crypto.ChaCha20" /> class.
+        /// Creates a new instance of <see cref="Hyprx.Crypto.ChaCha20" /> class.
         /// </summary>
         /// <returns>A new instance of <see cref="ChaCha20"/>.</returns>
         public static new ChaCha20 Create()

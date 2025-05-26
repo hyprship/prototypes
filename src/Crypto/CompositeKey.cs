@@ -2,7 +2,7 @@ using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
 
-namespace Bearz.Crypto
+namespace Hyprx.Crypto
 {
     /// <summary>
     /// A key that is made up of composite fragments that generates a single span of

@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 
-namespace Bearz.Crypto;
+namespace Hyprx.Crypto;
 
 public class Salsa20Csrng : Csrng
 {

@@ -3,7 +3,7 @@ using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
-using Bearz.Text;
+using Hyprx.Text;
 
 namespace Hyprx.Platform.Process;
 

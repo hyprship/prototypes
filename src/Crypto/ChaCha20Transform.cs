@@ -5,7 +5,7 @@ using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 
-namespace Bearz.Crypto
+namespace Hyprx.Crypto
 {
     /// <summary>
     /// The ChaCha20 implementation.

@@ -1,4 +1,4 @@
-﻿namespace Bearz.Crypto.X509;
+﻿namespace Hyprx.Crypto.X509;
 
 /// <summary>
 /// Common <see cref="System.Security.Cryptography.Oid"/> Values.

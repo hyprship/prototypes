@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Bearz.Crypto;
+namespace Hyprx.Crypto;
 
 public static class EncryptionExtensions
 {

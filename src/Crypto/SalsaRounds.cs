@@ -1,4 +1,4 @@
-﻿namespace Bearz.Crypto;
+﻿namespace Hyprx.Crypto;
 
 public enum SalsaRounds
 {

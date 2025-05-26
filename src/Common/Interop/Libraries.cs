@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 
 // ReSharper disable once CheckNamespace
-namespace BearzStack;
+namespace HyprxStack;
 
 internal static partial class Interop
 {

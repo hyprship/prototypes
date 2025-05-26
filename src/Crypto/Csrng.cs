@@ -3,7 +3,7 @@ using System.Buffers;
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
 
-namespace Bearz.Crypto;
+namespace Hyprx.Crypto;
 
 public class Csrng : RandomNumberGenerator
 {

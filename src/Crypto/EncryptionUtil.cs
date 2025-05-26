@@ -4,7 +4,7 @@ using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Bearz.Crypto
+namespace Hyprx.Crypto
 {
     public static class EncryptionUtil
     {

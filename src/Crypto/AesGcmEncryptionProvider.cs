@@ -2,7 +2,7 @@
 using System.Buffers.Binary;
 using System.Security.Cryptography;
 
-namespace Bearz.Crypto;
+namespace Hyprx.Crypto;
 
 public class AesGcmEncryptionProvider : IEncryptionProvider
 {

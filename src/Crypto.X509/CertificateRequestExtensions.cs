@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
-namespace Bearz.Crypto.X509;
+namespace Hyprx.Crypto.X509;
 
 public static class CertificateRequestExtensions
 {

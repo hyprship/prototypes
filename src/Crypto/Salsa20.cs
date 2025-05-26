@@ -4,7 +4,7 @@ using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 
-namespace Bearz.Crypto;
+namespace Hyprx.Crypto;
 
 /// <summary>
 /// An implementation of Salsa20, a stream cipher proposed by Daniel J. Bernstein available for

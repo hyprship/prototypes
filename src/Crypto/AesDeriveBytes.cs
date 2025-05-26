@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
 
-namespace Bearz.Crypto
+namespace Hyprx.Crypto
 {
     /// <summary>
     /// Generates bytes using <see cref="Aes" /> over multiple iterations to tranform

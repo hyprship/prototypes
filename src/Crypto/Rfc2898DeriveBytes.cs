@@ -8,7 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 #pragma warning disable SA1405
 
-namespace Bearz.Crypto
+namespace Hyprx.Crypto
 {
     /// <summary>
     /// Implementation of PBKDF2 that allows a <see cref="HashAlgorithmName" />

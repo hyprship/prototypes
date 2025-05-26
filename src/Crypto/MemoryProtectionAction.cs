@@ -1,6 +1,6 @@
 using System;
 
-namespace Bearz.Crypto
+namespace Hyprx.Crypto
 {
     /// <summary>
     /// A delegate for encrypting or decrypting binary data, so that encryption methods can

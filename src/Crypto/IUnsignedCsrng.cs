@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bearz.Crypto;
+namespace Hyprx.Crypto;
 
 [CLSCompliant(false)]
 public interface IUnsignedCsrng

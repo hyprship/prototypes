@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
 
-namespace Bearz.Crypto
+namespace Hyprx.Crypto
 {
     [SuppressMessage(
         "Microsoft.Design",

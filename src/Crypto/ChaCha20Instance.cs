@@ -2,7 +2,7 @@ using System;
 using System.Buffers;
 using System.Buffers.Binary;
 
-namespace Bearz.Crypto
+namespace Hyprx.Crypto
 {
     internal static class ChaCha20Instance
     {

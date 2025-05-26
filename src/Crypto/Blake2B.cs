@@ -5,7 +5,7 @@ using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 
-namespace Bearz.Crypto
+namespace Hyprx.Crypto
 {
     // https://blake2.net/blake2.pdf
     [SuppressMessage("", "CA1819:", Justification = "Byte[] for properties are required in crypto.")]

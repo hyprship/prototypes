@@ -3,7 +3,7 @@ using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Bearz.Crypto
+namespace Hyprx.Crypto
 {
     [SuppressMessage("Major Code Smell", "S4035:Classes implementing \"IEquatable<T>\" should be sealed")]
     public class MemoryProtectedText : MemoryProtectedBytes,

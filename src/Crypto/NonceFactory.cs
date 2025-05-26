@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Bearz.Crypto
+namespace Hyprx.Crypto
 {
     public static class NonceFactory
     {

@@ -5,7 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 
 // ReSharper disable InconsistentNaming
 // ECDsa is how .NET names the cipher.
-namespace Bearz.Crypto.X509;
+namespace Hyprx.Crypto.X509;
 
 public interface ICertificateRequestBuilder
 {

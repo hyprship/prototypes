@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Bearz.Crypto
+namespace Hyprx.Crypto
 {
     [SuppressMessage(
         "Microsoft.Naming",
