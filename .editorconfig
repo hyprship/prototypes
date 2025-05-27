@@ -396,6 +396,7 @@ dotnet_diagnostic.SA1600.severity = none # elements are not required to be docum
 dotnet_diagnostic.SA1601.severity = none # partial elements are not required to be documented.
 dotnet_diagnostic.SA1602.severity = none # enumerations are not required to be documented.
 dotnet_diagnostic.SA1633.severity = none # file should have a copyright header
+dotnet_diagnostic.SA1625.severity = none # allow copy/paste of xml comments when warranted.
 
 
 dotnet_diagnostic.RS0016.severity = none # 
